@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.digitalmischief.rickandmortyapp.models.Result
 import com.digitalmischief.rickandmortyapp.viewModels.CharacterViewModel
 
-class CharacterAdapter(private val characters: List<Result> = emptyList()) : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
+class CharacterAdapter(private var characters: List<Result> = emptyList()) : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
@@ -20,6 +20,12 @@ class CharacterAdapter(private val characters: List<Result> = emptyList()) : Rec
         with(characters[position]){
             CharacterViewModel(image, name, location?.name)
         }.let (holder::bind)
+    }
+
+    fun updateCharacters(newCharacters: List<Result>){
+        characters = newCharacters
+        notifyDataSetChanged()
+
     }
 
     override fun getItemCount(): Int = characters.size

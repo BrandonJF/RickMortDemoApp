@@ -19,6 +19,7 @@ class CharacterListFragment : Fragment() {
 
     lateinit var  rootView: View
     lateinit var viewModel: CharacterListViewModel
+    private val characterAdapter = CharacterAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,7 +30,7 @@ class CharacterListFragment : Fragment() {
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupSubscriptions()
 
@@ -38,7 +39,7 @@ class CharacterListFragment : Fragment() {
 
     fun setupSubscriptions(){
         viewModel.characterListLiveData.observe(this, Observer { it ->
-
+            it?.let(characterAdapter::updateCharacters)
         })
     }
 
